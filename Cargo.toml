@@ -6,3 +6,28 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+rocket = { version="0.5.0-rc.3", features=["json"] }
+sqlx = { version = "0.7.1", features = [ "runtime-tokio-rustls" , "postgres", "time", "uuid"] }
+dotenvy = "0.15"
+log = "0.4"
+pretty_env_logger = "0.5.0"
+async-trait = "0.1"
+thiserror = "1.0"
+anyhow = "1.0.75"
+
+[commands]
+# setup command
+db-up = "docker run --name $POSTGRES_DB_NAME  -l slack-rs-db -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 55008:5432 -d postgres"
+db-down = "docker rm $(docker ps --filter label=slack-rs-db -q) -f"
+add-database = "sqlx database create"
+add-migration = "sqlx migrate add setup"
+run-migration = "sqlx migrate run"
+watch = "cargo watch -q -c -w src/ -x run"
+#test commands
+create-answer = "hurl ./hurl/create-answer.hurl"
+create-question = "hurl ./hurl/create-question.hurl"
+delete-answer = "hurl ./hurl/delete-answer.hurl"
+get-answers = "hurl ./hurl/get-answers.hurl"
+get-questions = "hurl ./hurl/get-questions.hurl"
