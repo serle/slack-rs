@@ -15,23 +15,19 @@ pub async fn create_question(question: Json<Question>) -> Json<QuestionDetail> {
 
 #[get("/questions")]
 pub async fn read_questions() -> Json<Vec<QuestionDetail>> {
-    Json(
-        vec![QuestionDetail {
-            question_uuid: "question_uuid".to_owned(),
-            title: "title".to_owned(),
-            description: "description".to_owned(),
-            created_at: "created_at".to_owned(),
-        }]
-    )
+    Json(vec![QuestionDetail {
+        question_uuid: "question_uuid".to_owned(),
+        title: "title".to_owned(),
+        description: "description".to_owned(),
+        created_at: "created_at".to_owned(),
+    }])
 }
 
 #[delete("/question", data = "<question_uuid>")]
 pub async fn delete_question(question_uuid: Json<QuestionId>) -> Json<QuestionId> {
-    Json(
-        QuestionId {
-            question_uuid: "question_uuid".to_owned(),
-        }
-    )
+    Json(QuestionId {
+        question_uuid: "question_uuid".to_owned(),
+    })
 }
 
 // ---- CRUD for Answers ----
@@ -48,21 +44,17 @@ pub async fn create_answer(answer: Json<Answer>) -> Json<AnswerDetail> {
 
 #[get("/answers", data = "<question_uuid>")]
 pub async fn read_answers(question_uuid: Json<QuestionId>) -> Json<Vec<AnswerDetail>> {
-    Json(
-        vec![AnswerDetail {
-            answer_uuid: "answer_uuid".to_owned(),
-            question_uuid: "question_uuid".to_owned(),
-            content: "content".to_owned(),
-            created_at: "created_at".to_owned(),
-        }]
-    )
+    Json(vec![AnswerDetail {
+        answer_uuid: "answer_uuid".to_owned(),
+        question_uuid: "question_uuid".to_owned(),
+        content: "content".to_owned(),
+        created_at: "created_at".to_owned(),
+    }])
 }
 
 #[delete("/answer", data = "<answer_uuid>")]
 pub async fn delete_answer(answer_uuid: Json<AnswerId>) -> Json<AnswerId> {
-    Json(
-        AnswerId {
-            answer_uuid: "answer_uuid".to_owned(),
-        }
-    )
+    Json(AnswerId {
+        answer_uuid: "answer_uuid".to_owned(),
+    })
 }

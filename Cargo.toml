@@ -16,10 +16,12 @@ pretty_env_logger = "0.5.0"
 async-trait = "0.1"
 thiserror = "1.0"
 anyhow = "1.0.75"
+chrono = "0.4.30"
+uuid = "1.4.1"
 
-[commands]
+[cmd]
 # setup command
-db-up = "docker run --name $POSTGRES_DB_NAME  -l slack-rs-db -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 55008:5432 -d postgres"
+db-up = "source .env && docker run --name $POSTGRES_DB_NAME -l slack-rs-db -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 55008:5432 -d postgres"
 db-down = "docker rm $(docker ps --filter label=slack-rs-db -q) -f"
 add-database = "sqlx database create"
 add-migration = "sqlx migrate add setup"

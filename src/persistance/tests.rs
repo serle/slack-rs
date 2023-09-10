@@ -104,7 +104,7 @@ mod answers_tests {
 
         let result = question_doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await
@@ -184,7 +184,7 @@ mod answers_tests {
 
         let question = question_doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await
@@ -272,7 +272,7 @@ mod answers_tests {
 
         let question = question_doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await
@@ -321,7 +321,7 @@ mod questions_tests {
 
         let result = doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await;
@@ -349,7 +349,7 @@ mod questions_tests {
 
         let result = doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await
@@ -422,7 +422,7 @@ mod questions_tests {
 
         let result = doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await
@@ -474,7 +474,7 @@ mod questions_tests {
 
         let result = doa
             .create_question(Question {
-                title: "test title".to_owned(),
+                question: "test title".to_owned(),
                 description: "test description".to_owned(),
             })
             .await

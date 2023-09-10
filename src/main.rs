@@ -3,22 +3,23 @@
 #[macro_use]
 extern crate rocket;
 extern crate pretty_env_logger;
-#[macro_use] 
+#[macro_use]
 extern crate log;
 
 mod cors;
 mod handlers;
 mod models;
+mod persistance;
 
-use std::env;
+use anyhow::{anyhow, Result};
 use cors::*;
-use handlers::*;
 use cors::*;
-use handlers::*;
-use rocket::{Rocket, Build};
-use sqlx::postgres::PgPoolOptions;
-use anyhow::{ Result, anyhow };
 use dotenvy::dotenv;
+use handlers::*;
+use handlers::*;
+use rocket::{Build, Rocket};
+use sqlx::postgres::PgPoolOptions;
+use std::env;
 
 use crate::models::Question;
 
@@ -32,17 +33,6 @@ async fn rocket() -> _ {
         .connect(&std::env::var("DATABASE_URL").expect("DATABASE_URL must be set."))
         .await
         .expect("Failed to connect to database");
-
-
-    // TODO: Delete this query
-    let recs = sqlx::query!("SELECT * FROM questions")
-        .fetch_all(&pool)
-        .await
-        .unwrap();
-
-    // TODO: Delete these log statements
-    info!("********* Question Records *********");
-    info!("{:?}", &recs);
 
     rocket::build()
         .mount(
