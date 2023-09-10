@@ -2,17 +2,14 @@
 POST http://localhost:8000/question
 Accept: application/json
 {
-	"title": "Question 1",
+	"question": "Question 1",
 	"description": "Description"
 }
 HTTP 200
-[Asserts]
-jsonpath "$.id" exists
 [Captures]
-question_id: jsonpath "$.id"
+question_id: jsonpath "$.question_uuid"
 
 # create an answer for question 1
-curl --request POST \
 POST http://localhost:8000/answer
 Accept: application/json
 {
@@ -20,3 +17,5 @@ Accept: application/json
 	"content": "Content"
 }
 HTTP 200
+[Asserts]
+jsonpath "$.answer_uuid" exists

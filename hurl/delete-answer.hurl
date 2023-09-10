@@ -2,17 +2,14 @@
 POST http://localhost:8000/question
 Accept: application/json
 {
-	"title": "Question 1",
+	"question": "Question 1",
 	"description": "Description"
 }
 HTTP 200
-[Asserts]
-jsonpath "$.id" exists
 [Captures]
-question_id: jsonpath "$.id"
+question_id: jsonpath "$.question_uuid"
 
 # create answer to the question
-curl --request POST \
 POST http://localhost:8000/answer
 Accept: application/json
 {
@@ -21,7 +18,7 @@ Accept: application/json
 }
 HTTP 200
 [Captures]
-answer_id: jsonpath "$.id"
+answer_id: jsonpath "$.answer_uuid"
 
 # delete the answer for the question
 DELETE http://localhost:8000/answer

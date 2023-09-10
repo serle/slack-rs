@@ -2,17 +2,16 @@
 POST http://localhost:8000/question
 Accept: application/json
 {
-	"title": "Question 1",
+	"question": "Question 1",
 	"description": "Description"
 }
 HTTP 200
 [Asserts]
-jsonpath "$.id" exists
+jsonpath "$.question_uuid" exists
 [Captures]
-question_id: jsonpath "$.id"
+question_id: jsonpath "$.question_uuid"
 
 # create answer 1 to question 1
-curl --request POST \
 POST http://localhost:8000/answer
 Accept: application/json
 {
@@ -21,10 +20,11 @@ Accept: application/json
 }
 HTTP 200
 [Captures]
-answer1_id: jsonpath "$.id"
+answer1_id: jsonpath "$.answer_uuid"
+[Asserts]
+jsonpath "$.answer_uuid" exists
 
 # create answer 2 to question 1
-curl --request POST \
 POST http://localhost:8000/answer
 Accept: application/json
 {
@@ -33,10 +33,11 @@ Accept: application/json
 }
 HTTP 200
 [Captures]
-answer2_id: jsonpath "$.id"
+answer2_id: jsonpath "$.answer_uuid"
+[Asserts]
+jsonpath "$.answer_uuid" exists
 
 # create answer 3 to question 1
-curl --request POST \
 POST http://localhost:8000/answer
 Accept: application/json
 {
@@ -45,23 +46,39 @@ Accept: application/json
 }
 HTTP 200
 [Captures]
-answer3_id: jsonpath "$.id"
+answer3_id: jsonpath "$.answer_uuid"
+[Asserts]
+jsonpath "$.answer_uuid" exists
+
 
 # test that we can get all three answers form question 1
 GET http://localhost:8000/answers
 Accept: application/json
 {
-	"question_uuid": "[UUID of a created question]"
+	"question_uuid": "{{question_id}}"
 }
 HTTP 200
-[Assert]
-jsonpath "$" count 3
+[Asserts]
+jsonpath "$" count == 3
 
-[Delete Answers]
+# delete all three answers
 DELETE http://localhost:8000/answer
 Accept: application/json
 {
-	"answer_uuid": "[UUID of a created answer]"
+	"answer_uuid": "{{answer1_id}}"
 }
+HTTP 200
 
+DELETE http://localhost:8000/answer
+Accept: application/json
+{
+	"answer_uuid": "{{answer2_id}}"
+}
+HTTP 200
+
+DELETE http://localhost:8000/answer
+Accept: application/json
+{
+	"answer_uuid": "{{answer3_id}}"
+}
 HTTP 200

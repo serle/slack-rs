@@ -2,15 +2,16 @@
 POST http://localhost:8000/question
 Accept: application/json
 {
-	"title": "Title",
+	"question": "Title",
 	"description": "Description"
 }
 HTTP 200
 [Captures]
-question_id: jsonpath "$.id"
+question_id: jsonpath "$.question_uuid"
+[Asserts]
+jsonpath "$.question_uuid" exists
 
 # deleting the above question
-[Delete Question]
 DELETE http://localhost:8000/question
 Accept: application/json
 {

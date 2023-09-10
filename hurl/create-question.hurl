@@ -2,10 +2,11 @@
 POST http://localhost:8000/question
 Accept: application/json
 {
-	"title": "Title",
+	"question": "Title",
 	"description": "Description"
 }
 
 HTTP 200
-[Captures]
-question_id: jsonpath "$.id"
+[Asserts]
+jsonpath "$.question_uuid" exists
+
